@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.ifrn.projetocrud.dominio.Pedido;
+import br.edu.ifrn.projetocrud.dominio.Usuario;
 import br.edu.ifrn.projetocrud.repository.PedidoRepository;
+import br.edu.ifrn.projetocrud.repository.UsuarioRepository;
 
 @Controller
 @RequestMapping("/pedidos")
@@ -27,6 +31,10 @@ public class InicioController {
 	
 	@Autowired
 	PedidoRepository pedidoRepository;
+	
+
+	@Autowired
+	UsuarioRepository usuarioRepository;
 	
 	@GetMapping("/")
 	public String inicio(ModelMap model) {
@@ -66,6 +74,13 @@ public class InicioController {
 			RedirectAttributes attr, HttpSession sessao) {
 		
 		List<String> msgValidacao = validarDados(pedido);
+		
+		//Pegando o email do usuário logado
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String email = authentication.getName(); 
+		
+		Usuario u = usuarioRepository.findByEmail(email).get();
+		pedido.setUsuario(u);
 		
 		//se a lista não for vazia
 		if(!msgValidacao.isEmpty()) {

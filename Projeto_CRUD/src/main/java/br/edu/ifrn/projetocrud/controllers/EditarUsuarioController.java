@@ -4,11 +4,12 @@ import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import br.edu.ifrn.projetocrud.dominio.Usuario;
 import br.edu.ifrn.projetocrud.repository.UsuarioRepository;
@@ -30,26 +31,26 @@ public class EditarUsuarioController {
 	@Transactional
 	@GetMapping("/editar")
 	public String iniciarEdicao(
-			@RequestParam(name="id", required = false) Long idUsuario,
-			ModelMap model,
-			HttpSession sessao
+			ModelMap model, HttpSession sessao
 			) {
 		
-		if(idUsuario == null) {
+		/*if(idUsuario == null) {
 			model.addAttribute("msgErro", "Digite um número inteiro");
 			return "/usuario/editarUsuario";
-		}
+		}*/
 		
-		boolean existe = usuarioRepository.existsById(idUsuario);
-		
-		//Se o usuário existe
-		if(existe) {	
-			Usuario u = usuarioRepository.findById(idUsuario).get();
+		//Pegando o email do usuário logado
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String email = authentication.getName(); 
+			
+		//Usar usuaroRepository para buscar os dados do usuário logado pelo email
+		//Enviar os dados encontrados para a página de edição usando o modelMap
+	
+			Usuario u = usuarioRepository.findByEmail(email).get();
 			model.addAttribute("usuario", u);
 			model.addAttribute("mostrarTodosDados", x); 
-		} else {
-			model.addAttribute("msgErro", "Esse usuário não existe!");
-		}
+		
+		
 		return "/usuario/editarUsuario";
 	}	
 }

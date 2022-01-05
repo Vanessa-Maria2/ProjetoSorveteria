@@ -14,14 +14,21 @@
 	
 	<div id="divForm" class="container" style="padding-top: 10px; padding-bottom:10px;">
 	
-	<form th:action="@{/pedidos/buscar}" method="get">
+	<form th:action="@{/pedidos/buscarPedidos}" method="get">
 		<fieldset>
 			<legend style="font-weight: bold;">
-				Busca de Pedidos
+				Busca de todos Pedidos
 			</legend>
 		</fieldset>
 		
 		<table>
+			<!--<tr>
+				<td>Id:</td>
+				<td>
+					<input type="number" id="quantity" name="quantity" min="0" max="100" th:name="id"/>
+				</td>
+			</tr>-->
+			
 			<tr>
 				<td></td>
 				<td>	
@@ -45,6 +52,8 @@
 				<th>Quantidade</th>
 				<th>Endereço</th>
 				<th>Observações</th>
+				<th>Nome</th>
+				<th>Contato</th>
 			</tr>
 			
 			<tr th:each="u : ${pedidosEncontrados}">
@@ -53,6 +62,8 @@
 				<td th:text="${u.quantidade}"></td>
 				<td th:text="${u.endereco}"></td>
 				<td th:text="${u.observacoes}"></td>
+				<td th:text="${u.usuario.nome}"></td>
+				<td th:text="${u.usuario.tel}"></td>
 			</tr>
 		</table>
 	</div>

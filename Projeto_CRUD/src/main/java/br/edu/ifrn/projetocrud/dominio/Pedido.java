@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Pedido {
@@ -21,6 +22,9 @@ public class Pedido {
 	public String endereco; 
 	
 	public String observacoes;
+	
+	@ManyToOne(optional = false)
+	private Usuario usuario;
 	
 	public Long getId() {
 		return id;
@@ -59,6 +63,10 @@ public class Pedido {
 	public void setObservacoes(String observacoes) {
 		this.observacoes = observacoes;
 	}
-
-	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 }

@@ -1,0 +1,17 @@
+<div  class="container" th:if="${msgSucesso} != null">
+	   <b th:text="${msgSucesso}" style="color:blue;"> </b>
+	   <br/> <br/>
+	</div>
+	<div class="container" th:if="${msgErro} != null">
+	   <b th:text="${msgErro}" style="color:red;"> </b>
+	   <br/> <br/>
+	</div>
+	<div class="container" th:if="${msgsErro} != null">
+		<ul> 
+			<li th:each="m : ${msgsErro}">
+				<b th:text="${m}" style="color: red;"></b>
+			</li>
+		</ul>
+	</div>  
+	
+	

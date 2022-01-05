@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt"
+   xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaft/layout">
+   
+<head>
+<meta charset="UTF-8">
+<title></title>
+<meta http-equiv="X-UA-Compatible" content= "IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<style>
+	
+	body{
+	background-color: #FFF0F5;
+	}
+	
+	#divForm {
+	 width: 30%;
+	 background-color:  white;
+	 color: rgb(255, 128, 128);
+	}
+	
+	#navBar{
+	font-size: 20px;
+	}
+	
+	#imgTopo {
+	  position: absolute;
+	  z-index: 1;
+	}
+	
+#divForm2 {
+	 width: 100%;
+	 height:50%;
+	 background-color: white;
+
+	}
+	img{
+	text-align: center;
+	margin: 0 auto;
+	top:0;
+	}
+	#butao{
+	text-align: center;
+	}
+  ul li{
+  display: inline-block;
+  
+  }
+  
+  #imgTopo {
+	  position: absolute;
+	  z-index: 1;
+	}
+	
+	#formLogin{
+	width: 30%;
+	 background-color:  white;
+	}
+	
+  .profile-area{
+padding: 80px 0;
+}
+.card{
+box-shadow:0  0 30px rgba(0,0,0,0.5);
+overflow:hidden;
+border-radius:15px;
+}
+.img1 img{
+height:200px;
+border-top-right-radius:15px;
+border-top-left-radius:15px;
+width:100%;
+}
+
+.main-text{
+padding:30px 0;
+text-align:center;
+}
+.main-text h2{
+text-transform:uppercase;
+font-weight:900;
+font-size:20px;
+margin: 0 0 20px;
+}
+.main-text p{
+font-size:16px;
+padding:0 35px;}
+	
+	</style>
+</head>
+<body>
+	<div style="background-color: white;">
+	<table>
+	<tr>
+	<td><img  id="imgTopo" src="/imagens/cobertura5.png" title="decoração" style="width: 1347px; height: 70px;"/></td>
+	</tr>
+	</table>
+	  <nav id="navBar" class="navbar navbar-expand-lg navbar-white bg-white" style="padding-top: 35px;" >
+	 
+	 <div class="container-fluid">
+	 
+	   <a class="navbar-brand" href="/usuarios/login">
+	    <img src="/imagens/loosorvete4.png" alt="" width="200" height="44" class="d-inline-block align-text-top">
+	   </a>
+	   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	     <span class="navbar-toggler-icon"></span>
+	   </button>
+	   <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+	       <li class="nav-item">
+	         <a class="nav-link active" aria-current="page" href="/usuarios/login" style="margin-top: 10px;" >Início</a>
+	       </li>
+	     </ul>
+	   </div>
+	 </div>
+	</nav>
+	</div>
+	
+	<br/>
+	<br/>
+		<div class="row">
+			<div class="col-12">
+				
+				<section layout:fragment="corpo">
+				
+				</section>
+			</div> 
+   		 </div>
+  </body>
+</html>

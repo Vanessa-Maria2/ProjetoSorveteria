@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt"
+	layout:decorate="~{/layouts/layoutExterno}">
+<head>
+	<meta charset="UTF-8">
+	<title>Login</title>
+
+</head>
+<body>
+	
+	
+	<section layout:fragment="corpo">
+		
+		<div th:replace="fragments/mensagens"></div>
+		
+		<div class="container" id="formLogin">
+	
+		<form method="post" th:action="@{/login}" id="formLogin">
+			
+			<fieldset>
+				<legend style="font-weight: bold;">
+					Login
+				</legend>		
+			</fieldset>
+			Email:
+			<input type="text" name="username" required autofocus/><br/>
+			
+			Senha: 
+			<input type="password" name="password" required/><br/>
+			
+			<input type="checkbox" name="remember-me"/>Lembrar-me<br/>
+			
+			<button type="submit">Entrar</button>
+			
+		</form>
+		
+		<p>Clique no botão abaixo para se cadastrar no site!</p>
+		<form th:action="@{/usuarios/cadastro}" method="get">
+			<input type="submit" value="Se cadastrar"/> <br/>
+		</form>
+	</div>
+	</section>
+</body>
+</html>

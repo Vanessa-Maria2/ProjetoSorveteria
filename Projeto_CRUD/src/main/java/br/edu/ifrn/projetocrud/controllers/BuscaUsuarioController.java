@@ -1,11 +1,14 @@
 package br.edu.ifrn.projetocrud.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,12 +31,46 @@ public class BuscaUsuarioController {
 		return "usuario/busca";
 	}
 	
+	@GetMapping("/buscaUsuarios")
+	public String buscaUsuarios() {
+		return "usuario/buscaUsuarios";
+	}
+	
+	//busca os dados do usuário logado
 	@GetMapping("/buscar")
 	public String buscar(@RequestParam (name="nome", required=false) String nome,
 			@RequestParam (name="mostrarTodosDados", required=false)
 	Boolean mostrarTodosDados, HttpSession sessao , ModelMap model )  {
 		
-		List<Usuario> usuariosEncontrados = usuarioRepository.findByNome(nome);
+		//List<Usuario> usuariosEncontrados = usuarioRepository.findByNome(nome);
+		
+		//Pegando o email do usuário logado
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String email = authentication.getName(); 
+		
+		Usuario u = usuarioRepository.findByEmail(email).get();
+		
+		if(u != null) {
+			model.addAttribute("usuariosEncontrados", u);
+		}
+		
+		if(mostrarTodosDados != null) {
+			model.addAttribute("mostrarTodosDados", true);
+		}
+		
+		return "usuario/busca";
+		
+	}
+	
+	//busca todos usuários, apenas o ADMIN tem acesso
+	@GetMapping("/buscarUsuarios")
+	public String buscarTodosUsuarios(@RequestParam (name="nome", required=false) String nome,
+			@RequestParam (name="mostrarTodosDados", required=false)
+	Boolean mostrarTodosDados, HttpSession sessao , ModelMap model )  {
+		
+		//List<Usuario> usuariosEncontrados = usuarioRepository.findByNome(nome);
+		
+		List<Usuario> usuariosEncontrados = usuarioRepository.findAll();
 		
 		if(usuariosEncontrados != null) {
 			model.addAttribute("usuariosEncontrados", usuariosEncontrados);
@@ -43,7 +80,7 @@ public class BuscaUsuarioController {
 			model.addAttribute("mostrarTodosDados", true);
 		}
 		
-		return "usuario/busca";
+		return "usuario/buscaUsuarios";
 		
 	}
 	
@@ -55,19 +92,31 @@ public class BuscaUsuarioController {
 	@Transactional
 	@GetMapping("/remover")
 	public String remover(
-			@RequestParam(name="id", required = false) Long idUsuario,
+			//@RequestParam(name="id", required = false) Long idUsuario,
 			HttpSession sessao,
 			RedirectAttributes attr
 			) {
 	
-		if(idUsuario == null) {
+		/*if(idUsuario == null) {
 			attr.addFlashAttribute("msgErro", "Digite um número inteiro");
 			return "redirect:/usuarios/remove";
 		}
 		
 		boolean existe = usuarioRepository.existsById(idUsuario);
-
-		if(existe) {
+		*/
+		
+		//Pegando o email do usuário logado
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String email = authentication.getName(); 
+				
+		//usuarioRepository.deleteById(idUsuario);
+		
+		Optional<Usuario> u = usuarioRepository.findByEmail(email);
+		
+		Long idUsuario = u.get().getId();
+		
+		
+		if(idUsuario != null) {
 			usuarioRepository.deleteById(idUsuario);
 			attr.addFlashAttribute("msgSucesso", "Usuário removido com sucesso!");
 		} else {
@@ -75,6 +124,6 @@ public class BuscaUsuarioController {
 		}
 
 		//nome da url de alguma página que será chamada
-		return "redirect:/usuarios/remove";
+		return "redirect:/login";
 	}
 }
