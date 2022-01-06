@@ -18,6 +18,16 @@ import br.edu.ifrn.projetocrud.repository.UsuarioRepository;
  * 
  * Autor: Mírian Andryellen (mirianvital21@gmail.com) e Vanessa Maria (vanessa.silva5205@gmail.com)
  * 
+ * Data de criação: 16/09/2021
+ * ##################################
+ * Última alteração: 
+ * 
+ * Analista: Mírian
+ * Data: 05/01/2022
+ * Alteração: Documentação de código
+ * 
+ * #####################################
+ * 
  * 
  * 
 Essa é um classe controladora cuja função é controlar a exibição e execução das urls que foram requisitidas, dando assim uma
@@ -31,7 +41,7 @@ public class EditarUsuarioController {
 	//a variável x do tipo String possui o valor de a
 	String x = "a";
 	
-	//objeto do tipo usuarioReository que tem o objetivo de consultar informações no banco de dados da tabela Usuario.
+	//objeto do tipo UsuarioRepository que tem o objetivo de consultar informações no banco de dados da tabela Usuario.
 	@Autowired
 	UsuarioRepository usuarioRepository;
 	

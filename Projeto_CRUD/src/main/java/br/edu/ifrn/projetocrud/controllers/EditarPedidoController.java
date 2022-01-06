@@ -20,15 +20,38 @@ import org.springframework.web.bind.annotation.RequestParam;
 import br.edu.ifrn.projetocrud.dominio.Pedido;
 import br.edu.ifrn.projetocrud.repository.PedidoRepository;
 
+/* Objetivos: Esta classe tem objetivo de editar os pedidos do usuário logado
+ * 
+ * Autor: Mírian Andryellen (mirianvital21@gmail.com) e Vanessa Maria (vanessa.silva5205@gmail.com)
+ * 
+ * Data de criação: 16/09/2021
+ * ##################################
+ * Última alteração: 
+ * 
+ * Analista: Vanessa
+ * Data: 06/01/2022
+ * Alteração: Documentação de código
+ * 
+ * #####################################
+ * 
+ * 
+ * 
+Essa é um classe controladora cuja função é controlar a exibição e execução das urls que foram requisitidas, dando assim uma
+resposta para para quem a requisitou, de modo que envie a requisição correta.
+*/
 @Controller
+//essa classe responde pela url "/pedidos"
 @RequestMapping("/pedidos")
 public class EditarPedidoController {
 	
+	//a variável x do tipo String possui o valor de a
 	String x = "a";
 	
+	//objeto do tipo PedidoRepository que tem o objetivo de consultar informações no banco de dados da tabela Pedido.
 	@Autowired
 	PedidoRepository pedidoRepository;
 	
+	//dá acesso a página de editar pedidos, ao ser requisitada retorna a página editarPedido e enviar todos os pedidos do usuário logado
 	@GetMapping("/edicao")
 	public String inicioEdicao(ModelMap model) {
 			//Pegando o email do usuário logado
@@ -42,6 +65,7 @@ public class EditarPedidoController {
 			if(pedidosEncontrados != null && !pedidosEncontrados.isEmpty()) {
 			model.addAttribute("pedidosEncontrados", pedidosEncontrados);
 			} else {
+				//mensagem de feedback para informar ao usuário caso ele não tenha nenhum pedido cadastrado no banco de dados
 				model.addAttribute("msgErro", "Você não possui pedidos cadastrados!");
 			}
 		return "editarPedido";
@@ -56,12 +80,7 @@ public class EditarPedidoController {
 			HttpSession sessao
 			) {
 
-		/*if(idPedido == null) {
-			model.addAttribute("msgErro", "Digite um número inteiro");
-			return "editarPedido";
-		}*/
-		
-		//verifica se o id passado existe no banco de dados
+		//verifica se o id passado na url existe no banco de dados
 		boolean existe = pedidoRepository.existsById(idPedido);
 		
 		//Se o pedido existir
@@ -77,13 +96,14 @@ public class EditarPedidoController {
 		return "editarPedido";
 	}
 
-	
+	//método responsável por atribuir ao atributo pedidos uma lista com os tipos de pedidos
 	@ModelAttribute("pedidos")
 	public List<String> getTiposPedidos(){
 		return Arrays.asList("Sorvete de Chocolate", "Sorvete de Morango", "Açaí", 
 				"Milk Shake", "Sorvete Napolitano", "Sorvete Baunilha", "Sorvete Acerola");
 	}
 	
+	//método responsável por atribuir ao atributo tiposDePagamento uma lista com os tipos de pagamentos
 	@ModelAttribute("tiposDePagamento")
 	public List<String> getTiposDePagamento(){
 		return Arrays.asList("Crédito", "Débito", "Pix", 

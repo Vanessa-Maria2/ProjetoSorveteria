@@ -24,6 +24,16 @@ import br.edu.ifrn.projetocrud.repository.UsuarioRepository;
  * 
  * Autor: Mírian Andryellen (mirianvital21@gmail.com) e Vanessa Maria (vanessa.silva5205@gmail.com)
  * 
+ * Data de criação: 16/09/2021
+ * ##################################
+ * Última alteração: 
+ * 
+ * Analista: Vanessa
+ * Data: 05/01/2022
+ * Alteração: Documentação de código
+ * 
+ * #####################################
+ * 
  * 
 Essa é um classe controladora cuja função é controlar a exibição e execução das urls que foram requisitidas, dando assim uma
 resposta para para quem a requisitou, de modo que envie a requisição correta.
@@ -33,51 +43,15 @@ resposta para para quem a requisitou, de modo que envie a requisição correta.
 @RequestMapping("/usuarios")
 public class BuscaUsuarioController {
 	
-	//objeto do tipo usuarioReository que tem o objetivo de consultar informações no banco de dados da tabela Usuario.
+	//objeto do tipo UsuarioRepository que tem o objetivo de consultar informações no banco de dados da tabela Usuario.
 	@Autowired
 	UsuarioRepository usuarioRepository;
-	
-	//dá acesso a página de busca de usuário que está logado, ao consultar a requisição será retornado a página Html de busca de usuário
-	@GetMapping("/busca")
-	public String entrarBusca() {
-		return "usuario/busca";
-	}
 	
 	/*dá acesso a página de busca de todos usuário cadastrados no sistema, ao consultar a requisição será retornado a página Html 
 	de busca de usuários*/
 	@GetMapping("/buscaUsuarios")
 	public String buscaUsuarios() {
 		return "usuario/buscaUsuarios";
-	}
-	
-	//busca os dados do usuário logado
-	@GetMapping("/buscar")
-	public String buscar(@RequestParam (name="nome", required=false) String nome,
-			@RequestParam (name="mostrarTodosDados", required=false)
-	Boolean mostrarTodosDados, HttpSession sessao , ModelMap model )  {
-		
-		//List<Usuario> usuariosEncontrados = usuarioRepository.findByNome(nome);
-		
-		//Pegando o email do usuário logado
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String email = authentication.getName(); 
-		
-		Usuario u = usuarioRepository.findByEmail(email).get();
-		
-		//verificando se o objeto usuário é diferente de nulo
-		if(u != null) {
-			//envia o objeto u (usuario) para a página e ele vai ser apresentado através do atributo usuariosEncontrados
-			model.addAttribute("usuariosEncontrados", u);
-		}
-		
-		//verificando se a requisição mostrar todos dados é diferente de nulo 
-		if(mostrarTodosDados != null) {
-			model.addAttribute("mostrarTodosDados", true);
-		}
-		
-		//retorna a página de busca de usuário
-		return "usuario/busca";
-		
 	}
 	
 	//busca todos usuários cadastrados no sistema, apenas o ADMINISTRADOR tem acesso a essa funcionalidade
