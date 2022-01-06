@@ -20,10 +20,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import br.edu.ifrn.projetocrud.dominio.Pedido;
 import br.edu.ifrn.projetocrud.repository.PedidoRepository;
 
-/* Objetivos: Esta classe tem objetivo de editar os pedidos do usuário logado
+/** Objetivos: Esta classe tem objetivo de editar os pedidos do usuário logado
  * 
- * Autor: Mírian Andryellen (mirianvital21@gmail.com) e Vanessa Maria (vanessa.silva5205@gmail.com)
- * 
+ * @author Mírian Andryellen (mirianvital21@gmail.com) e Vanessa Maria (vanessa.silva5205@gmail.com)
+ * @version 3ª versão do projeto
  * Data de criação: 16/09/2021
  * ##################################
  * Última alteração: 
@@ -51,7 +51,12 @@ public class EditarPedidoController {
 	@Autowired
 	PedidoRepository pedidoRepository;
 	
-	//dá acesso a página de editar pedidos, ao ser requisitada retorna a página editarPedido e enviar todos os pedidos do usuário logado
+	/**
+	 * Esse método da acesso a página de editar pedidos
+	 * 
+	 * @param model Responsável por enviar todos os pedidos encontrados do usuário logado para a página de editarPedido
+	 * @return Retorna a página de Editar Pedido
+	 */
 	@GetMapping("/edicao")
 	public String inicioEdicao(ModelMap model) {
 			//Pegando o email do usuário logado
@@ -71,13 +76,18 @@ public class EditarPedidoController {
 		return "editarPedido";
 	}
 	
-	//responsável por editar o pedido de id passado pela url
+	/**
+	 * Responsável por editar o pedido de id passado pela url
+	 * 
+	 * @param idPedido Armazena o id passado pela url
+	 * @param model Retorna o objeto do tipo pedido de id passado pela url para a página editarPedido
+	 * @return Retorna para a página de editarPedido
+	 */
 	@Transactional
 	@GetMapping("/editar/{id}")
 	public String iniciarEdicao(
 			@PathVariable(name="id", required = false) Long idPedido,
-			ModelMap model,
-			HttpSession sessao
+			ModelMap model
 			) {
 
 		//verifica se o id passado na url existe no banco de dados

@@ -23,10 +23,11 @@ import br.edu.ifrn.projetocrud.dominio.Usuario;
 import br.edu.ifrn.projetocrud.repository.PedidoRepository;
 import br.edu.ifrn.projetocrud.repository.UsuarioRepository;
 
-/* Objetivos: Esta classe tem objetivo de salvar os dados de pedido cadastrado ou após a realização de edição de pedidos de um
+/** Objetivos: Esta classe tem objetivo de salvar os dados de pedido cadastrado ou após a realização de edição de pedidos de um
  * usuário logado, além de busca os dados do usuário após realizar login
  * 
- * Autor: Mírian Andryellen (mirianvital21@gmail.com) e Vanessa Maria (vanessa.silva5205@gmail.com)
+ * @author Mírian Andryellen (mirianvital21@gmail.com) e Vanessa Maria (vanessa.silva5205@gmail.com)
+ * @version 3ª versão do projeto
  * 
  * Data de criação: 16/09/2021
  * ##################################
@@ -56,8 +57,12 @@ public class InicioController {
 	@Autowired
 	UsuarioRepository usuarioRepository;
 	
-	/*dá acesso a página de inicio que corresponde a página de cadastro de pedidos, ao consultar a requisição será retornado a página Html 
-	 * inicio enviando um objeto pedido através do model map*/
+	/**
+	 * Dá acesso a página de inicio que corresponde a página de cadastro de pedidos, passando um novo  objeto pedido
+	 * 
+	 * @param model Responsável por enviar um novo objeto pedido para ser preenchido na página de cadastro de pedido (inicio)
+	 * @return Retorna a página de cadastro de pedidos (inicio)
+	 */
 	@GetMapping("/")
 	public String inicio(ModelMap model) {
 		//envia uma variavel chamada pedido que correponde a um novo Pedido
@@ -71,7 +76,12 @@ public class InicioController {
 		return "quemSomos";
 	}
 	
-	//método responsável por fazer a validação dos dados do pedido passsado como parâmetro
+	/**
+	 * Método responsável por fazer a validação dos dados do pedido passsado como parâmetro
+	 * 
+	 * @param Pedido recebe um objeto do tipo pedido para verificar os dados preenchidos nos seus atributos
+	 * @return Retorna uma lista de mensagens com os possíveis erros encontrados
+	 */
 	private List<String> validarDados(Pedido pedido){
 		
 		//lista para armazenar os possíveis erros

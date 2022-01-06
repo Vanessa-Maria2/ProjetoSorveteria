@@ -32,10 +32,11 @@ import br.edu.ifrn.projetocrud.dominio.Usuario;
 import br.edu.ifrn.projetocrud.repository.ArquivoRepository;
 import br.edu.ifrn.projetocrud.repository.UsuarioRepository;
 
-/* Objetivos: Esta classe tem objetivo de salvar os dados do usuário cadastrado ou após a realização de edição de um perfil logado, 
+/** Objetivos: Esta classe tem objetivo de salvar os dados do usuário cadastrado ou após a realização de edição de um perfil logado, 
  * além de busca os dados do usuário após realizar login
  * 
- * Autor: Mírian Andryellen (mirianvital21@gmail.com) e Vanessa Maria (vanessa.silva5205@gmail.com)
+ * @author Mírian Andryellen (mirianvital21@gmail.com) e Vanessa Maria (vanessa.silva5205@gmail.com)
+ * @version 3ª versão do projeto
  * 
  * Data de criação: 16/09/2021
  * ##################################
@@ -65,8 +66,12 @@ public class CadastroUsuarioController {
 	@Autowired
 	private ArquivoRepository arquivoRepository;
 	
-	/*dá acesso a página de cadastro de usuário, ao consultar a requisição será retornado a página Html de cadastro enviando um 
-	 * objeto usuário através do model map*/
+	/**
+	 * Dá acesso a página de cadastro de usuário, passando um novo  objeto usuário
+	 * 
+	 * @param model Responsável por enviar um novo objeto usuário para ser preenchido na página de cadastro
+	 * @return Retorna a página de cadastro
+	 */
 	@GetMapping("/cadastro")
 	public String entrarCadastro(ModelMap model) {
 		//envia uma variavel chamada pedido que correponde a um novo Pedido

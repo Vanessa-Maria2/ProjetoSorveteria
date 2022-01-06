@@ -1,5 +1,7 @@
 package br.edu.ifrn.projetocrud.controllers;
 
+import java.util.Optional;
+
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
@@ -14,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import br.edu.ifrn.projetocrud.dominio.Usuario;
 import br.edu.ifrn.projetocrud.repository.UsuarioRepository;
 
-/* Objetivos: Esta classe tem objetivo de editar os dados do usuário logado
+/**
+ * Objetivos: Esta classe tem objetivo de editar os dados do usuário logado
  * 
- * Autor: Mírian Andryellen (mirianvital21@gmail.com) e Vanessa Maria (vanessa.silva5205@gmail.com)
+ * @author  Mírian Andryellen (mirianvital21@gmail.com) e Vanessa Maria (vanessa.silva5205@gmail.com)
+ * @version 3ª versão do projeto
  * 
  * Data de criação: 16/09/2021
  * ##################################
@@ -32,7 +36,7 @@ import br.edu.ifrn.projetocrud.repository.UsuarioRepository;
  * 
 Essa é um classe controladora cuja função é controlar a exibição e execução das urls que foram requisitidas, dando assim uma
 resposta para para quem a requisitou, de modo que envie a requisição correta.
-*/
+ */
 @Controller
 //essa classe responde pela url "/usuarios"
 @RequestMapping("/usuarios")
@@ -51,19 +55,27 @@ public class EditarUsuarioController {
 		return "/usuario/editarUsuario";
 	}
 	
-	//método responsável pela edição do usuário logado
+	/**
+	 * Método responsável pela edição do usuário logado
+	 * 
+	 * @param model Responsável por enviar o objeto usuário logado para a página de editarPedido
+	 * @return Retorna para a página de editarUsuario
+	 */
 	@Transactional
 	@GetMapping("/editar")
 	public String iniciarEdicao(
-			ModelMap model, HttpSession sessao
-			) {
+			ModelMap model) {
 	
 		//Pegando o email do usuário logado
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String email = authentication.getName(); 
 			
-		//Usa o usuaroRepository para buscar os dados do usuário logado pelo email
-			Usuario u = usuarioRepository.findByEmail(email).get();
+	
+			//realiza uma busca no repositório de usuário buscando pelo email logado e armazena essa busca no objeto u
+			Optional<Usuario> u = usuarioRepository.findByEmail(email);
+			
+			//pega as informações do objeto u através do método get e armazena no objeto usuario
+			Usuario usuario = u.get();
 			//Enviar os dados encontrados para a página de edição usando o modelMap
 			model.addAttribute("usuario", u);
 			/*o x serve para informar a página de editar usuário que mostrarTodosDados não é null, cuja finalidade é permitir que as informações 

@@ -19,11 +19,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.edu.ifrn.projetocrud.dominio.Usuario;
 import br.edu.ifrn.projetocrud.repository.UsuarioRepository;
 
-/* Objetivos: Esta classe tem objetivo de buscar os dados do usuário, seja especifíco ou geral, e também
+
+/**
+ * Objetivos: Esta classe tem objetivo de buscar os dados do usuário, seja especifíco ou geral, e também
  * remover o usuário do sistema
  * 
- * Autor: Mírian Andryellen (mirianvital21@gmail.com) e Vanessa Maria (vanessa.silva5205@gmail.com)
  * 
+ * @author Mírian Andryellen (mirianvital21@gmail.com) e Vanessa Maria (vanessa.silva5205@gmail.com)
+ * @version 3ª versão do projeto
+ *
  * Data de criação: 16/09/2021
  * ##################################
  * Última alteração: 
@@ -37,7 +41,7 @@ import br.edu.ifrn.projetocrud.repository.UsuarioRepository;
  * 
 Essa é um classe controladora cuja função é controlar a exibição e execução das urls que foram requisitidas, dando assim uma
 resposta para para quem a requisitou, de modo que envie a requisição correta.
-*/
+ */
 @Controller
 //essa classe responde pela url "/usuarios"
 @RequestMapping("/usuarios")
@@ -54,11 +58,14 @@ public class BuscaUsuarioController {
 		return "usuario/buscaUsuarios";
 	}
 	
-	//busca todos usuários cadastrados no sistema, apenas o ADMINISTRADOR tem acesso a essa funcionalidade
+	/**
+	 * Busca todos usuários cadastrados no sistema, apenas o ADMINISTRADOR tem acesso a essa funcionalidade
+	 *  
+	 * @param model Envia todos os usuários encontrados para a página buscaUsuario
+	 * @return Retorna para a página de buscaUsuarios
+	 */
 	@GetMapping("/buscarUsuarios")
-	public String buscarTodosUsuarios(@RequestParam (name="nome", required=false) String nome,
-			@RequestParam (name="mostrarTodosDados", required=false)
-	Boolean mostrarTodosDados, HttpSession sessao , ModelMap model )  {
+	public String buscarTodosUsuarios(ModelMap model )  {
 		
 		//realiza uma busca no repositório de usuário, consultando todos os usuários encontrados e armazenando na lista usuariosEncontrados
 		List<Usuario> usuariosEncontrados = usuarioRepository.findAll();
@@ -67,11 +74,6 @@ public class BuscaUsuarioController {
 		if(usuariosEncontrados != null) {
 			//envia a lista de usuariosEncontrados para a página no qual vai ser apresentado através do atributo usuariosEncontrados
 			model.addAttribute("usuariosEncontrados", usuariosEncontrados);
-		}
-		
-		//verificando se a requisição mostrar todos dados é diferente de nulo
-		if(mostrarTodosDados != null) {
-			model.addAttribute("mostrarTodosDados", true);
 		}
 		
 		//responsável por retornar a página buscaUsuarios
